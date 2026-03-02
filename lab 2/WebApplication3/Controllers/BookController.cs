@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using WebApplication3.DTOs;
 using WebApplication3.Interfaces;
+using WebApplication3.Models;
 
 namespace WebApplication3.Controllers;
 [Route("books")]
@@ -15,17 +17,35 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllBooks()
+    public async Task<IActionResult> GetAllBooks()
     {
-        var books = bookService.GetAllBooks();
+        var books = await bookService.GetAllBooks();
         return Ok(books);
 
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetBookById(int id)
+    public async Task<IActionResult> GetBookById(int id)
     {
-        var book = bookService.GetBookById(id);
+        BookDetailsDTO? book = await bookService.GetBookById(id);
+        if (book == null)
+        {
+            return NotFound();
+        }
+        return Ok(book);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddBook(Book book)
+    {
+        var addedBook = await bookService.AddBook(book);
+        return CreatedAtAction(nameof(GetBookById), new { id = addedBook.Id }, addedBook);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateBook(int id, Book updatedBook)
+    {
+        var book = await bookService.UpdateBook(id, updatedBook);
         if (book == null)
         {
             return NotFound();

@@ -1,23 +1,56 @@
+using Microsoft.EntityFrameworkCore;
+using WebApplication3.Database;
 using WebApplication3.Interfaces;
 using WebApplication3.Models;
+using WebApplication3.DTOs;
 namespace WebApplication3.Services;
 
 public class BookService : IBookService
 {
-    List<Book> books = new List<Book>
-    {
-        new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", PublicationYear = 1925 },
-        new Book { Id = 2, Title = "To Kill a Mockingbird", Author = "Harper Lee", PublicationYear = 1960 },
-        new Book { Id = 3, Title = "1984", Author = "George Orwell", PublicationYear = 1949 }
-    };
+    ApplicationDbContext _context;
     
-    public IEnumerable<Book> GetAllBooks()
+    public BookService(ApplicationDbContext context)
     {
-        return books;
+        _context = context;
     }
 
-    public Book? GetBookById(int id)
+    public async Task<IEnumerable<Book>> GetAllBooks()
     {
-        return books.FirstOrDefault(b => b.Id == id);
+        return await _context.Books.ToListAsync();
     }
+
+    public async Task<BookDetailsDTO?> GetBookById(int id)
+    {
+        return await _context.Books.Where(b => b.Id == id).Include(b => b.author).AsNoTracking().Select(b => new BookDetailsDTO
+        {
+            Id = b.Id,
+            Title = b.Title,
+            AuthorName = b.author.Name,
+            PublicationYear = b.PublicationYear
+        }).FirstOrDefaultAsync();
+
+    }
+
+
+    public async Task<Book> AddBook(Book book)
+    {
+        _context.Books.Add(book);
+        await _context.SaveChangesAsync();
+        return book;
+    }
+
+    public async Task<Book?> UpdateBook(int id, Book updatedBook)
+    {
+        var book = await _context.Books.FindAsync(id);
+        if (book == null)
+        {
+            return null;
+        }
+        book.Title = updatedBook.Title;
+        book.author = updatedBook.author;
+        book.PublicationYear = updatedBook.PublicationYear;
+        await _context.SaveChangesAsync();
+        return book;
+    }
+    
 }
