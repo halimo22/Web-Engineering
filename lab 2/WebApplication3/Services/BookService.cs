@@ -52,5 +52,27 @@ public class BookService : IBookService
         await _context.SaveChangesAsync();
         return book;
     }
+    public async Task DeleteBook(int id)
+    {
+        var book = await _context.Books.FindAsync(id);
+        if (book != null)
+        {
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+        }
     
+    }
+
+    public async Task<IEnumerable<Book>> GetBooksByAuthorId(int authorId)
+    {
+        return await _context.Books.Where(b => b.AuthorId == authorId).ToListAsync();
+    }
+
+    public async Task<AuthorNameDTO> GetAuthorName(int bookId)
+    {
+        return await _context.Books.Where(b => b.Id == bookId).Include(b => b.author).AsNoTracking().Select(b => new AuthorNameDTO
+        {
+            Name = b.author.Name
+        }).FirstOrDefaultAsync();
+    }
 }

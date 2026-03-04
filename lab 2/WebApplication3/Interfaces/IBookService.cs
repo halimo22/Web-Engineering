@@ -6,7 +6,11 @@ public interface IBookService
 {
     Task<IEnumerable<Book>> GetAllBooks();
     Task<BookDetailsDTO?> GetBookById(int id);
-
     Task<Book> AddBook(Book book);
     Task<Book?> UpdateBook(int id, Book updatedBook);
+    Task DeleteBook(int id);
+
+    Task <IEnumerable<Book>> GetBooksByAuthorId(int authorId);
+
+    Task<AuthorNameDTO> GetAuthorName(int BookId);
 }

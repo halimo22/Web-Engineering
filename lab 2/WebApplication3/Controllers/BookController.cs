@@ -52,4 +52,27 @@ public class BookController : ControllerBase
         }
         return Ok(book);
     }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBook(int id)
+    {
+        await bookService.DeleteBook(id);
+        return NoContent();
+    }
+    [HttpGet("author/{authorId}")]
+    public async Task<IActionResult> GetBooksByAuthor(int authorId)
+    {
+        var books = await bookService.GetBooksByAuthorId(authorId);
+        return Ok(books);
+    }
+
+    [HttpGet("{id}/author")]
+    public async Task<IActionResult> GetAuthorName(int id)
+    {
+        var author = await bookService.GetAuthorName(id);
+        if (author == null)
+        {
+            return NotFound();
+        }
+        return Ok(author);
+    }
 }
