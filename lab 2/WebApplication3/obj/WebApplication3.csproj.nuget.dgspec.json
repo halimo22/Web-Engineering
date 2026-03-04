@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/WebApplication3.csproj": {}
+    "/Users/seifeldinhanea/Desktop/Web Engineering/WebApplication3/WebApplication3.csproj": {}
   },
   "projects": {
-    "/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/WebApplication3.csproj": {
+    "/Users/seifeldinhanea/Desktop/Web Engineering/WebApplication3/WebApplication3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/WebApplication3.csproj",
+        "projectUniqueName": "/Users/seifeldinhanea/Desktop/Web Engineering/WebApplication3/WebApplication3.csproj",
         "projectName": "WebApplication3",
-        "projectPath": "/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/WebApplication3.csproj",
+        "projectPath": "/Users/seifeldinhanea/Desktop/Web Engineering/WebApplication3/WebApplication3.csproj",
         "packagesPath": "/Users/seifeldinhanea/.nuget/packages/",
-        "outputPath": "/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/obj/",
+        "outputPath": "/Users/seifeldinhanea/Desktop/Web Engineering/WebApplication3/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/seifeldinhanea/.nuget/NuGet/NuGet.Config"
@@ -43,18 +43,6 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "dependencies": {
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[10.0.3, )"
-            },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
-              "target": "Package",
-              "version": "[10.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
