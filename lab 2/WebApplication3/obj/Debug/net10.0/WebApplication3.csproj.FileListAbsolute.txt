@@ -146,3 +146,12 @@
 /Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/obj/Debug/net10.0/WebApplication3.pdb
 /Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/obj/Debug/net10.0/WebApplication3.genruntimeconfig.cache
 /Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/obj/Debug/net10.0/ref/WebApplication3.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/Users/seifeldinhanea/Desktop/Web Engineering/lab 2/WebApplication3/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3.DTOs;
 using WebApplication3.Interfaces;
@@ -15,7 +16,7 @@ public class BookController : ControllerBase
     {
         this.bookService = bookService;
     }
-
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllBooks()
     {
@@ -24,6 +25,7 @@ public class BookController : ControllerBase
 
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBookById(int id)
     {
@@ -36,6 +38,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> AddBook(Book book)
     {
         var addedBook = await bookService.AddBook(book);
@@ -43,6 +46,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> UpdateBook(int id, Book updatedBook)
     {
         var book = await bookService.UpdateBook(id, updatedBook);
@@ -53,12 +57,14 @@ public class BookController : ControllerBase
         return Ok(book);
     }
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteBook(int id)
     {
         await bookService.DeleteBook(id);
         return NoContent();
     }
     [HttpGet("author/{authorId}")]
+    [Authorize]
     public async Task<IActionResult> GetBooksByAuthor(int authorId)
     {
         var books = await bookService.GetBooksByAuthorId(authorId);
@@ -66,6 +72,7 @@ public class BookController : ControllerBase
     }
 
     [HttpGet("{id}/author")]
+    [Authorize]
     public async Task<IActionResult> GetAuthorName(int id)
     {
         var author = await bookService.GetAuthorName(id);
