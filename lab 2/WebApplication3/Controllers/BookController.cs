@@ -25,7 +25,7 @@ public class BookController : ControllerBase
 
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin ")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBookById(int id)
     {
