@@ -1,33 +1,124 @@
-import { useState } from "react";
-import "./App.css";
-function App() {
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { Link, Navigate, Route, Routes, useParams } from 'react-router-dom'
+import './App.css'
 
-  const [task,setTask] = useState("");
-  const [tasks,setTasks] = useState([]);
-  const handleAddTask = () => {
-    setTasks([...tasks,task]);
-    setTask("");
-  }
-  const handleDeleteTask = (deleteIndex) => {
-  const updatedTasks = tasks.filter((item, index) => index !== deleteIndex);
-  setTasks(updatedTasks);
-};
+const api = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com',
+})
+
+function UsersPage() {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await api.get('/users')
+        setUsers(response.data)
+      } catch {
+        setError('Failed to load users. Please try again.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUsers()
+  }, [])
 
   return (
-    <div>
-      <h1>Todo App</h1>
-      <input type="text" placeholder="Enter Task" value={task} onChange={(e) => setTask(e.target.value)} />
-      <button onClick={handleAddTask}>Add Task</button>
-      <ul>
-        {tasks.map((item, index) => (
-          <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} key={index}>
-            {item}
-            <button style={{ marginLeft: "10px" }} onClick={() => handleDeleteTask(index)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <section>
+      <h2>All Users</h2>
+      <p className="hint">GET /users</p>
+
+      {loading && <p>Loading users...</p>}
+      {error && <p className="error">{error}</p>}
+
+      {!loading && !error && (
+        <ul className="user-list">
+          {users.map((user) => (
+            <li key={user.id}>
+              <Link to={`/users/${user.id}`}>{user.name}</Link>
+              <span>{user.email}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
 }
 
-export default App;
+function UserDetailsPage() {
+  const { id } = useParams()
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await api.get(`/users/${id}`)
+        setUser(response.data)
+      } catch {
+        setError('Failed to load user details. Please try again.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUser()
+  }, [id])
+
+  return (
+    <section>
+      <h2>User Details</h2>
+      <p className="hint">GET /users/{id}</p>
+
+      {loading && <p>Loading user details...</p>}
+      {error && <p className="error">{error}</p>}
+
+      {!loading && !error && user && (
+        <article className="user-card">
+          <h3>{user.name}</h3>
+          <p>
+            <strong>Username:</strong> {user.username}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Phone:</strong> {user.phone}
+          </p>
+          <p>
+            <strong>Website:</strong> {user.website}
+          </p>
+        </article>
+      )}
+    </section>
+  )
+}
+
+function App() {
+  return (
+    <main className="app">
+      <header>
+        <h1>Axios + React Router Demo</h1>
+        <p>Simple example for fetching data and navigating between routes.</p>
+      </header>
+
+      <nav className="nav-links">
+        <Link to="/users">Users List</Link>
+        <Link to="/users/1">User #1</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Navigate to="/users" replace />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/:id" element={<UserDetailsPage />} />
+      </Routes>
+    </main>
+  )
+}
+
+export default App
